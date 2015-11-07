@@ -6,7 +6,8 @@ import datetime
 import json
 
 class create:
-    def createDir(dir):
+    def createDir(self):
+        global ts
         ts = time.time()
         os.mkdir('C:\\temp\KothosTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M')))
         global folder
@@ -17,7 +18,8 @@ class create:
     def createLog(txt):
         filename=open(folder+'\KothosAutoTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M'))+'.log', 'w+')
 
-
+create.createDir('self')
+create.createLog('txt')
 
 
 
@@ -25,5 +27,3 @@ class create:
 
 driver = webdriver.Chrome()
 driver.get('http://www.thecityofkothos.com/')
-
-class gather:
