@@ -1,6 +1,6 @@
 __author__ = 'Nephtiry'
 from selenium import webdriver
-import os
+import os, stat
 import time
 import datetime
 import json
@@ -13,7 +13,8 @@ class Pyjson:
             data = json.load(data_file)
             global label
             label = data["TopLabel"]
-            pprint(data)
+            global pages
+            pages = data["Pages"]
 
 Pyjson.json('data_file')
 
@@ -25,7 +26,9 @@ class create:
         global folder
         folder=('C:\\temp\KothosTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M')))
         os.mkdir(folder+'\Screenshots')
+        global screenfolder
         screenfolder=(folder+'\Screenshots')
+        os.chmod('screenfolder', stat.S_IWRITE)
 
     def createLog(txt):
         global filename
@@ -39,7 +42,12 @@ class gather(Pyjson):
         for item in label:
             filename.write(item + '\n')
 
+
+
 gather.pyjs('self')
 
-driver = webdriver.Chrome()
+options = webdriver.ChromeOptions()
+options.add_argument("--start-maximized")
+driver = webdriver.Chrome(chrome_options=options)
 driver.get('http://www.thecityofkothos.com/')
+#driver.save_screenshot(folder+'\Screenshots'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
