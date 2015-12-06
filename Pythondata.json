@@ -5,6 +5,34 @@
 "Logfile - Kothos Project",
 "Programmer - Nephtiry Bailey"
 
-]
+],
+
+"Pages": [
+"Chapter Headings",
+"Prologue",
+"Glossary",
+"Creston",
+"Bella Tu",
+"Tuppa Tu",
+"Batuma Kan",
+"Sal Li",
+"Cleophi Tan",
+"Black & White Gallary",
+"Color Gallary"
+
+],
+
+"BTT": [
+  "Prologue",
+  "FIRST page of Glossary",
+  "SECOND page of Glossary"
+
+],
+
+  "BTT2": [
+    "Prologue",
+    "Glossary",
+    "2"
+  ]
 
 }

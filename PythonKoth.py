@@ -15,8 +15,10 @@ class Pyjson:
             label = data["TopLabel"]
             global pages
             pages = data["Pages"]
-            global imgn
-            imgn = data["Imgname"]
+            global btt
+            btt = data["BTT"]
+            global btt2
+            btt2 = data["BTT2"]
 
 Pyjson.json('data_file')
 
@@ -36,38 +38,49 @@ class create:
         global filename
         filename=open(folder+'\KothosAutoTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M'))+'.log', 'a')
 
-create.createDir('self')
-create.createLog('txt')
-
-
-
-options = webdriver.ChromeOptions()
-options.add_argument("--start-maximized")
-driver = webdriver.Chrome(chrome_options=options)
-driver.get('http://www.thecityofkothos.com/')
-
 class gather(Pyjson):
     def pyjs(self):
         for item in label:
             filename.write(item + '\n')
 
     def pyjs2(self):
-        filename.write('\nReached Homepage--PASSED')
+        filename.write('\nReached Homepage--PASSED\n')
         print('Reached Homepage. Testing links...')
         for item in pages:
             driver.find_element_by_link_text(item).click()
-            for name in imgn:
-                if driver.find_elements_by_css_selector(name):
-                    filename.write('Reached ' + item + '--PASSED\n')
-                    print('Reached ' + item + '-PASSED\n')
-                    driver.get('http://www.thecityofkothos.com/')
-                else:
-                    filename.write("ERROR: " + item + "NOT FOUND--TEST FAILED")
-                    print("ERROR: " + item + "NOT FOUND--TEST FAILED")
+            if driver.find_elements_by_tag_name('img'):
+                filename.write('Reached ' + item + '--PASSED\n')
+                print('Reached ' + item + '-PASSED')
+                driver.get('http://www.thecityofkothos.com/')
+            else:
+                filename.write("ERROR: " + item + "NOT FOUND--TEST FAILED\n")
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
+                print("ERROR: " + item + "NOT FOUND--TEST FAILED")
 
+    def batt(self):
+        driver.get('http://www.thecityofkothos.com/thePages/theChapterHeadings.shtml')
+        driver.find_element_by_link_text('Back to Top').click()
+        filename.write("Found 'Back To Top' link in Chapter Headings --PASSED\n")
+        print("Found 'Back To Top' link in Chapter Headings --PASSED")
 
+        for nav in btt:
+            if driver.find_element_by_link_text("Back to Top").click:
+                filename.write("Found 'Back To Top' link in " + nav + "--PASSED\n")
+                print("Found 'Back To Top' link in " + nav + "--PASSED")
+                for each in btt2:
+                    driver.find_element_by_link_text(each).click()
+            else:
+                filename.write("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
+                print("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
+
+create.createDir('self')
+create.createLog('txt')
+options = webdriver.ChromeOptions()
+options.add_argument("--start-maximized")
+driver = webdriver.Chrome(chrome_options=options)
+driver.get('http://www.thecityofkothos.com/')
 gather.pyjs('self')
 gather.pyjs2('self')
+gather.batt('self')
 
 
-#driver.save_screenshot(folder+'\Screenshots'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
