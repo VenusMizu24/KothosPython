@@ -19,6 +19,10 @@ class Pyjson:
             btt = data["BTT"]
             global btt2
             btt2 = data["BTT2"]
+            global cloop
+            cloop = data["Creston"]
+            global crestgall
+            crestgall = data["CrestonGallary"]
 
 Pyjson.json('data_file')
 
@@ -73,6 +77,33 @@ class gather(Pyjson):
                 filename.write("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
                 print("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
 
+    def crest(self):
+        for sub in cloop:
+            driver.get('http://www.thecityofkothos.com/thePages/Creston.shtml')
+            if driver.find_element_by_link_text(sub).click:
+                filename.write("Found " + sub + " link--PASSED\n")
+                print("Found " + sub + " link--PASSED")
+            else:
+                filename.write('ERROR: CANNOT FIND ' + sub + '-- TEST FAILED')
+                print('ERROR: CANNOT FIND ' + sub + '-- TEST FAILED')
+        driver.get('http://www.thecityofkothos.com/thePages/BowandArrow.shtml')
+        if driver.find_element_by_link_text("Back to top").click:
+            filename.write("Found Back to Top link in Bow and Arrow page--PASSED\n")
+            print("Found Back To Top link in Bow and Arrow page--PASSED")
+        else:
+            filename.write('ERROR: CANNOT FIND Back to Top LINK-- TEST FAILED')
+            print('ERROR: CANNOT FIND Back To Top LINK-- TEST FAILED')
+
+    def crestg(self):
+        for page in crestgall:
+            driver.get('http://www.thecityofkothos.com/CrestonComic/ccPages/CrestonComic_Cover.html')
+            if driver.find_element_by_link_text(page).click:
+                filename.write("Found " + page + " link--PASSED\n")
+                print("Found " + page + " link--PASSED")
+            else:
+                filename.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                print('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+
 create.createDir('self')
 create.createLog('txt')
 options = webdriver.ChromeOptions()
@@ -82,5 +113,6 @@ driver.get('http://www.thecityofkothos.com/')
 gather.pyjs('self')
 gather.pyjs2('self')
 gather.batt('self')
-
+gather.crest('self')
+gather.crestg('self')
 
