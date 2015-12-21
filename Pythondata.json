@@ -57,6 +57,33 @@
   "Page 20",
   "Page 21",
   "Page 22"
-]
+],
+  "ColorGall": [
+    "The City of Kothos",
+    "Kothian Nobility",
+    "Palace Grounds",
+    "Creston Approaching Sarden",
+    "Marketplace",
+    "Meeting the Supreme",
+    "A broken tool",
+    "The Seal of the Inner Council",
+    "A cat making a delivery",
+    "Practicing magic",
+    "Posing for a picture",
+    "A tool tells a lie",
+    "A sitting room",
+    "Meeting of the Blue Librarians",
+    "The Assasin's weapon"
+  ],
+  "BWGall": [
+    "The City of Kothos",
+    "Wizard and Drib",
+    "Female Wizard",
+    "Creston Approaching Sarden",
+    "By the River",
+    "Blue Magic",
+    "Blue Lady and Drib",
+    "Blue Communion"
+  ]
 
 }

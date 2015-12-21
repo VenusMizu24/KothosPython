@@ -23,6 +23,10 @@ class Pyjson:
             cloop = data["Creston"]
             global crestgall
             crestgall = data["CrestonGallary"]
+            global colorgal
+            colorgal = data ["ColorGall"]
+            global BWgall
+            BWgall = data["BWGall"]
 
 Pyjson.json('data_file')
 
@@ -104,6 +108,28 @@ class gather(Pyjson):
                 filename.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
                 print('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
 
+    def colorgall(self):
+        for page in colorgal:
+            driver.get('http://www.thecityofkothos.com/GallaryBW/BW_Pages_v2/BW_Female_Male.shtml')
+            if driver.find_element_by_link_text(page).click:
+                filename.write("Found " + page + " link--PASSED\n")
+                print("Found " + page + " link--PASSED")
+            else:
+                filename.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                print('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+
+
+    def BWgall(self):
+        for each in BWgall:
+            driver.get('http://www.thecityofkothos.com/GallaryColor/Color_Pages/WizardandDrib.shtml')
+            if driver.find_element_by_link_text(each).click:
+                driver.implicitly_wait(10)
+                filename.write("Found " + each + " link--PASSED\n")
+                print("Found " + each + " link--PASSED")
+            else:
+                filename.write('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
+                print('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
+
 create.createDir('self')
 create.createLog('txt')
 options = webdriver.ChromeOptions()
@@ -115,4 +141,5 @@ gather.pyjs2('self')
 gather.batt('self')
 gather.crest('self')
 gather.crestg('self')
-
+gather.colorgall('self')
+gather.BWgall('self')
