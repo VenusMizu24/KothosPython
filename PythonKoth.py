@@ -5,6 +5,10 @@ import os, stat
 import time
 import datetime
 import json
+from PyQt4.QtCore import *
+from PyQt4 import QtGui
+from PyQt4.QtGui import *
+import sys
 
 class Pyjson:
     def json(data_file):
@@ -130,16 +134,65 @@ class gather(Pyjson):
                 filename.write('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
                 print('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
 
-create.createDir('self')
-create.createLog('txt')
-options = webdriver.ChromeOptions()
-options.add_argument("--start-maximized")
-driver = webdriver.Chrome(chrome_options=options)
-driver.get('http://www.thecityofkothos.com/')
-gather.pyjs('self')
-gather.pyjs2('self')
-gather.batt('self')
-gather.crest('self')
-gather.crestg('self')
-gather.colorgall('self')
-gather.BWgall('self')
+
+class Success(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        popup = QtGui.QVBoxLayout()
+
+        self.setWindowTitle('Finished!')
+        label = QLabel("Browser test done!\n\nThe log file and any error screenshots are in your temp folder.")
+        popup.addWidget(label)
+        self.setLayout(popup)
+
+class Chrome():
+    def gcvers(self):
+        create.createDir('self')
+        create.createLog('txt')
+        options = webdriver.ChromeOptions()
+        options.add_argument("--start-maximized")
+        global driver
+        driver = webdriver.Chrome(chrome_options=options)
+        driver.get('http://www.thecityofkothos.com/')
+        gather.pyjs('self')
+        gather.pyjs2('self')
+        gather.batt('self')
+        gather.crest('self')
+        gather.crestg('self')
+        gather.colorgall('self')
+        gather.BWgall('self')
+        driver.quit()
+        global popup
+        popup = Success()
+        popup.exec()
+
+class Browserbutton(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        layout = QtGui.QVBoxLayout()
+
+        label = QLabel("Welcome to The City of Kothos testing module!\nWhich browser do you want to test?")
+        GCbutton = QPushButton("Google Chrome")
+        MFbutton = QPushButton("Mozilla Firefox")
+        IEbutton = QPushButton("Internet Explorer")
+        MEbutton = QPushButton("Microsoft Edge")
+        closebutton = QPushButton("Exit")
+
+        self.setWindowTitle('City of Kothos')
+        layout.addWidget(label)
+        layout.addWidget(GCbutton)
+        layout.addWidget(MFbutton)
+        layout.addWidget(IEbutton)
+        layout.addWidget(MEbutton)
+        layout.addWidget(closebutton)
+
+
+        self.setLayout(layout)
+
+        GCbutton.clicked.connect(Chrome.gcvers)
+        closebutton.clicked.connect(self.close)
+
+app = QApplication(sys.argv)
+dialog = Browserbutton()
+dialog.show()
+app.exec()

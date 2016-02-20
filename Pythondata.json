@@ -14,6 +14,7 @@
     "Batuma Kan",
     "Sal Li",
     "Cleophi Tan",
+    "Contact Me!",
     "Black & White Gallary",
     "Color Gallary"
   ],
@@ -26,6 +27,29 @@
     "Prologue",
     "Glossary",
     "2"
+  ],
+
+  "Contact": [
+    "firstname",
+    "lastname",
+    "email",
+    "stAddress",
+    "city",
+    "zip",
+    "country",
+    "phone",
+    "comment"
+  ],
+
+  "Info": [
+    "John",
+    "Doe",
+    "jondoe321@gmail.com",
+    "123 Alabama Ave.",
+    "30235",
+    "United states",
+    "123-456-6789",
+    "testing"
   ],
 
   "Creston": [
@@ -59,31 +83,29 @@
   "Page 22"
 ],
   "ColorGall": [
-    "The City of Kothos",
-    "Kothian Nobility",
-    "Palace Grounds",
-    "Creston Approaching Sarden",
-    "Marketplace",
-    "Meeting the Supreme",
-    "A broken tool",
-    "The Seal of the Inner Council",
-    "A cat making a delivery",
-    "Practicing magic",
-    "Posing for a picture",
-    "A tool tells a lie",
-    "A sitting room",
-    "Meeting of the Blue Librarians",
-    "The Assasin's weapon"
+    "C_Image_01",
+    "C_Image_02",
+    "C_Image_03",
+    "C_Image_04",
+    "C_Image_05",
+    "C_Image_06",
+    "C_Image_07"
+
   ],
   "BWGall": [
-    "The City of Kothos",
-    "Wizard and Drib",
-    "Female Wizard",
-    "Creston Approaching Sarden",
-    "By the River",
-    "Blue Magic",
-    "Blue Lady and Drib",
-    "Blue Communion"
+    "BW_Image_01",
+    "BW_Image_02",
+    "BW_Image_03",
+    "BW_Image_04",
+    "BW_Image_05",
+    "BW_Image_06",
+    "BW_Image_07",
+    "BW_Image_08",
+    "BW_Image_09",
+    "BW_Image_10",
+    "BW_Image_12",
+    "BW_Image_13",
+    "BW_Image_14"
   ]
 
 }
