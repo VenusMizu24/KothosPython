@@ -4,6 +4,4 @@
 
 1. Go here: https://riverbankcomputing.com/software/pyqt/download
 2. Scroll to the bottom
-2. From the list ABOVE the "Development Snapshots" text, download the 32-BIT executable for the 4.8.7 version; that's what I'm using.  It should be the second one down.
-
-I don't know how to install it from the source.  The initial Pluralsight course that taught me how to use it just said to use the .exe file.
+2. From the list ABOVE the "Development Snapshots" text, download the correct bit executable for the 4.8.7 version, matching up with your bitrate version of Python
