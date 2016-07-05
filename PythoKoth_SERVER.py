@@ -2,12 +2,15 @@ from re import A
 
 __author__ = 'Nephtiry'
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import os, stat
 import time
 import datetime
 import json
+import time
 from PyQt4.QtCore import *
 from PyQt4 import QtGui
 from PyQt4.QtGui import *
@@ -15,7 +18,7 @@ import sys
 
 class Pyjson:
     def json(data_file):
-        with open(r"C:\Users\Nephtiry\PycharmProjects\PythonKoth\Pythondata.json") as data_file:
+        with open(r"C:\Users\Neph\Desktop\KothosPython-master\Pythondata.json") as data_file:
             global data
             data = json.load(data_file)
             global label
@@ -41,7 +44,6 @@ class Pyjson:
 
 Pyjson.json('data_file')
 
-
 class create:
     def createDir(self):
         global ts
@@ -49,206 +51,361 @@ class create:
         os.mkdir('C:\\temp\KothosTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M')))
         global folder
         folder=('C:\\temp\KothosTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M')))
-        os.mkdir(folder+'\Screenshots')
+        os.mkdir(folder+'\\Screenshots\\')
         global screenfolder
-        screenfolder=(folder+'\Screenshots')
+        screenfolder=(folder+'\\Screenshots\\')
 
     def createLog(txt):
         global filename
-        filename=open(folder+'\KothosAutoTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M'))+'.log', 'a')
-
+        filename=folder+'\KothosAutoTest_'+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M'))+'.log'
+        
 class gather(Pyjson):
-    def pyjs(self):
-        for item in label:
-            filename.write(item + '\n')
 
-    def pyjs2(self):
-        filename.write('\nReached Homepage--PASSED\n')
+    def pyjs(createLog):
+        f=open(filename, 'a')
+        for each in label:
+            f.write(each + '\n')
+        f.close()
+
+    def homelin(self):
+        f=open(filename, 'a')
+        f.write('\nReached Homepage--PASSED\n')
         print('Reached Homepage. Testing links...')
-
-        for item in pages:
-            driver.find_element_by_link_text(item).click()
+        f.close()
+        for i in pages:
+            driver.find_element_by_link_text(i).click()
             if driver.find_elements_by_tag_name('img'):
-                filename.write('Reached ' + item + '--PASSED\n')
-                print('Reached ' + item + '-PASSED')
-                driver.get('http://ramses/index.shtml')
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write('Reached ' + i + '--PASSED\n')
+                print('Reached ' + i + '-PASSED')
+                driver.get('http://thecityofkothos.com/')
+                time.sleep(1)
+                f.close()
             else:
-                filename.write("ERROR: " + item + "NOT FOUND--TEST FAILED\n")
+                f = open(filename, 'a')
+                f.write("ERROR: " + i + "NOT FOUND--TEST FAILED\n")
+                time.sleep(2)
                 driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
-                print("ERROR: " + item + "NOT FOUND--TEST FAILED")
+                print("ERROR: " + i + "NOT FOUND--TEST FAILED")
+                f.close()
+                
 
     def batt(self):
-        driver.get('http://ramses/thePages/theChapterHeadings.shtml')
-        driver.find_element_by_link_text('Back to Top').click()
-        filename.write("Found 'Back To Top' link in Chapter Headings --PASSED\n")
-        print("Found 'Back To Top' link in Chapter Headings --PASSED")
+        driver.get('http://thecityofkothos.com/thePages/theChapterHeadings.shtml')
+        if driver.find_element_by_link_text('Back to Top').click:
+            f=open(filename, 'a')
+            time.sleep(4)
+            f.write("Found 'Back To Top' link in Chapter Headings --PASSED\n")
+            print("Found 'Back To Top' link in Chapter Headings --PASSED")
+            f.close()
+        else:
+            f = open(filename, 'a')
+            f.write("ERROR: CANNOT FIND 'Back to Top' link in Chapter Headings-- TEST FAILED\n")
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
+            print("ERROR: CANNOT FIND 'Back to Top' link in Chapter Headings-- TEST FAILED\n")
+            f.close()
 
         for nav in btt:
             if driver.find_element_by_link_text("Back to Top").click:
-                filename.write("Found 'Back To Top' link in " + nav + "--PASSED\n")
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write("Found 'Back To Top' link in " + nav + "--PASSED\n")
                 print("Found 'Back To Top' link in " + nav + "--PASSED")
+                time.sleep(1)
                 for each in btt2:
                     driver.find_element_by_link_text(each).click()
+                    time.sleep(1)
+                f.close()
+
             else:
-                filename.write("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
+                f = open(filename, 'a')
+                f.write("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED\n")
+                time.sleep(2)
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
                 print("ERROR: CANNOT FIND 'Back to Top' LINK IN " + nav + "-- TEST FAILED")
+                f.close()
+                
 
     def crest(self):
         for sub in cloop:
-            driver.get('http://ramses/thePages/Creston.shtml')
+            driver.get('http://thecityofkothos.com/thePages/Creston.shtml')
             if driver.find_element_by_link_text(sub).click:
-                filename.write("Found " + sub + " link--PASSED\n")
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write("Found " + sub + " link--PASSED\n")
                 print("Found " + sub + " link--PASSED")
+                time.sleep(1)
+                f.close()
             else:
-                filename.write('ERROR: CANNOT FIND ' + sub + '-- TEST FAILED')
+                f = open(filename, 'a')
+                f.write('ERROR: CANNOT FIND ' + sub + '-- TEST FAILED\n')
+                time.sleep(2)
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
                 print('ERROR: CANNOT FIND ' + sub + '-- TEST FAILED')
+                f.close()
+                
 
-        driver.get('http://ramses/thePages/BowandArrow.shtml')
+        driver.get('http://thecityofkothos.com/thePages/BowandArrow.shtml')
         if driver.find_element_by_link_text("Back to top").click:
-            filename.write("Found Back to Top link in Bow and Arrow page--PASSED\n")
+            f=open(filename, 'a')
+            time.sleep(1)
+            f.write("Found Back to Top link in Bow and Arrow page--PASSED\n")
             print("Found Back To Top link in Bow and Arrow page--PASSED")
+            time.sleep(1)
+            f.close()
         else:
-            filename.write('ERROR: CANNOT FIND Back to Top LINK-- TEST FAILED')
+            f = open(filename, 'a')
+            f.write('ERROR: CANNOT FIND Back to Top LINK-- TEST FAILED\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print('ERROR: CANNOT FIND Back To Top LINK-- TEST FAILED')
+            f.close()
+            
 
 
-        driver.get('http://ramses/thePages/PriceOfAVisit.shtml')
+        driver.get('http://thecityofkothos.com/thePages/PriceOfAVisit.shtml')
         if driver.find_element_by_link_text("Back to top").click:
-            filename.write("Found Back to Top link in A Price of A Visit page--PASSED\n")
+            f=open(filename, 'a')
+            time.sleep(1)
+            f.write("Found Back to Top link in A Price of A Visit page--PASSED\n")
             print("Found Back To Top link in A Price of a Visit page--PASSED")
+            time.sleep(1)
+            f.close()
         else:
-            filename.write('ERROR: CANNOT FIND Back to Top LINK-- TEST FAILED')
+            f = open(filename, 'a')
+            f.write('ERROR: CANNOT FIND Back to Top LINK-- TEST FAILED\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print('ERROR: CANNOT FIND Back To Top LINK-- TEST FAILED')
+            f.close()
+            
 
 
 
     def crestg(self):
         for page in crestgall:
-            driver.get('http://ramses/CrestonComic/ccPages/CrestonComic_Cover.shtml')
+            driver.get('http://thecityofkothos.com/CrestonComic/ccPages/CrestonComic_Cover.shtml')
             driver.find_element_by_name(page).click()
             if driver.find_element_by_link_text(page).click:
-                filename.write("Found " + page + " link--PASSED\n")
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write("Found " + page + " link--PASSED\n")
                 print("Found " + page + " link--PASSED")
+                time.sleep(1)
+                f.close()
             else:
-                filename.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                f = open(filename, 'a')
+                f.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED\n')
+                time.sleep(2)
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
                 print('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                f.close()
+                
 
     def colorgall(self):
         for page in colorgal:
-            driver.get('http://ramses/GallaryColor/Color_Pages/WizardandDrib.shtml')
+            driver.get('http://thecityofkothos.com/GallaryColor/Color_Pages/WizardandDrib.shtml')
             driver.find_element_by_name(page).click()
             if driver.find_element_by_name(page).click:
-                filename.write("Found " + page + " link--PASSED\n")
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write("Found " + page + " link--PASSED\n")
                 print("Found " + page + " link--PASSED")
+                time.sleep(1)
+                f.close()
             else:
-                filename.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                f = open(filename, 'a')
+                f.write('ERROR: CANNOT FIND ' + page + '-- TEST FAILED\n')
+                time.sleep(2)
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
                 print('ERROR: CANNOT FIND ' + page + '-- TEST FAILED')
+                f.close()
+                
 
     def BWgall(self):
         for each in BWgall:
-            driver.get('http://ramses/GallaryBW/BW_Pages_v2/BW_Female_Male.shtml')
+            driver.get('http://thecityofkothos.com/GallaryBW/BW_Pages_v2/BW_Female_Male.shtml')
             driver.find_element_by_name(each).click()
             if driver.find_element_by_name(each).click:
-                driver.implicitly_wait(10)
-                filename.write("Found " + each + " link--PASSED\n")
+                f=open(filename, 'a')
+                time.sleep(1)
+                f.write("Found " + each + " link--PASSED\n")
                 print("Found " + each + " link--PASSED")
+                time.sleep(1)
+                f.close()
             else:
-                filename.write('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
+                f = open(filename, 'a')
+                f.write('ERROR: CANNOT FIND ' + each + '-- TEST FAILED\n')
+                time.sleep(2)
+                driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
                 print('ERROR: CANNOT FIND ' + each + '-- TEST FAILED')
+                f.close()
+                
 
     def contact(self):
-        driver.get("http://ramses/contactMe/Questionaire.shtml")
-        field = driver.find_element_by_name("firstname")
+        driver.get("http://thecityofkothos.com/contactMe/Questionaire.shtml")
+        field = driver.find_element_by_name("firstna")
         field.click()
         field.send_keys("John")
         if field.send_keys:
-            filename.write("Verified FIRST NAME text entry")
+            f=open(filename, 'a')
+            f.write("Verified FIRST NAME text entry\n")
             print ("Verified FIRST NAME text entry")
+            f.close()
         else:
-            filename.write('ERROR: FIRST NAME not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: FIRST NAME not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: FIRST NAME not entered!")
-        field1 = driver.find_element_by_name("lastname")
+            f.close()
+            
+        field1 = driver.find_element_by_name("lastna")
         field1.click()
         field1.send_keys("Doe")
         if field1.send_keys:
-            filename.write("Verified LAST NAME text entry")
+            f=open(filename, 'a')
+            f.write("Verified LAST NAME text entry\n")
             print ("Verified LAST NAME text entry")
+            f.close()
         else:
-            filename.write('ERROR: LAST NAME not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: LAST NAME not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: LAST NAME not entered!")
-        field2 = driver.find_element_by_name("email")
+            f.close()
+            
+        field2 = driver.find_element_by_name("email2")
         field2.click()
         field2.send_keys("johndoe123@gmail.com")
         if field2.send_keys:
-            filename.write("Verified EMAIL text entry")
+            f=open(filename, 'a')
+            f.write("Verified EMAIL text entry\n")
             print ("Verified EMAIL text entry")
+            f.close()
         else:
-            filename.write('ERROR: EMAIL not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: EMAIL not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: EMAIL not entered!")
+            f.close()
+            
         field3 = driver.find_element_by_name("stAddress")
         field3.click()
         field3.send_keys("123 Nevada Ave.")
         if field3.send_keys:
-            filename.write("Verified STREET ADDRESS text entry")
+            f=open(filename, 'a')
+            f.write("Verified STREET ADDRESS text entry\n")
             print ("Verified STREET ADDRESS text entry")
+            f.close()
         else:
-            filename.write('ERROR: STREET ADDRESS not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: STREET ADDRESS not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: STREET ADDRESS not entered!")
+            f.close()
+            
         field4 = driver.find_element_by_name("city")
         field4.click()
         field4.send_keys("Las Vegas")
         if field4.send_keys:
-            filename.write("Verified CITY text entry")
+            f=open(filename, 'a')
+            f.write("Verified CITY text entry\n")
             print ("Verified CITY text entry")
+            f.close()
         else:
-            filename.write('ERROR: CITY not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: CITY not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: CITY not entered!")
+            f.close()
+            
         field5 = driver.find_element_by_name("zip")
         field5.click()
         field5.send_keys("91082")
         if field5.send_keys:
-            filename.write("Verified ZIP CODE text entry")
+            f=open(filename, 'a')
+            f.write("Verified ZIP CODE text entry\n")
             print ("Verified ZIP CODE text entry")
+            f.close()
         else:
-            filename.write('ERROR: ZIP CODE not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: ZIP CODE not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: ZIP CODE not entered!")
+            f.close()
+            
         field6 = driver.find_element_by_name("country")
         field6.click()
         field6.send_keys("United States")
         if field6.send_keys:
-            filename.write("Verified COUNTRY text entry")
+            f=open(filename, 'a')
+            f.write("Verified COUNTRY text entry\n")
             print ("Verified COUNTRY text entry")
+            f.close()
         else:
-            filename.write('ERROR: COUNTRY not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: COUNTRY not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: COUNTRY not entered!")
+            f.close()
+            
         field7 = driver.find_element_by_name("phone")
         field7.click()
         field7.send_keys("123-456-7890")
         if field7.send_keys:
-            filename.write("Verified PHONE NUMBER text entry")
+            f=open(filename, 'a')
+            f.write("Verified PHONE NUMBER text entry\n")
             print ("Verified PHONE NUMBER text entry")
+            f.close()
         else:
-            filename.write('ERROR: PHONE NUMBER not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: PHONE NUMBER not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: PHONE NUMBER not entered!")
-        field8 = driver.find_element_by_name("comment")
+            f.close()
+            
+        field8 = driver.find_element_by_name("msg")
         field8.click()
         field8.send_keys("testing")
         if field8.send_keys:
-            filename.write("Verified COMMENT text entry")
+            f=open(filename, 'a')
+            f.write("Verified COMMENT text entry\n")
             print ("Verified COMMENT text entry")
+            f.close()
         else:
-            filename.write('ERROR: COMMENT not entered!')
+            f = open(filename, 'a')
+            f.write('ERROR: COMMENT not entered!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: COMMENT not entered!")
+            f.close()
+            
         state = driver.find_element_by_name("state")
         state.click()
         state.send_keys("n")
         state.send_keys(Keys.RETURN)
         if state.send_keys:
-            filename.write("Verified STATE selected")
+            f=open(filename, 'a')
+            f.write("Verified STATE selected\n")
             print ("Verified STATE selected")
+            f.close()
         else:
-            filename.write('ERROR: STATE not selected!')
+            f = open(filename, 'a')
+            f.write('ERROR: STATE not selected!\n')
+            time.sleep(2)
+            driver.save_screenshot(screenfolder+(datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S'))+'.png')
             print ("ERROR: STATE not selected!")
+            f.close()
 
 
 class Success(QDialog):
@@ -265,63 +422,90 @@ class Browsers():
     def gcvers(self):
         create.createDir('self')
         create.createLog('txt')
-        global driver
         if GCButton.clicked:
+            global driver
             driver = webdriver.Chrome()
-        driver.get('http://ramses/index.shtml')
-        gather.pyjs('self')
-        gather.pyjs2('self')
-        gather.batt('self')
-        gather.crest('self')
-        gather.crestg('self')
-        gather.contact('self')
-        gather.colorgall('self')
-        gather.BWgall('self')
-        driver.quit()
-        global popup
-        popup = Success()
-        popup.exec()
+            driver.maximize_window()
+            driver.get('http://thecityofkothos.com/index.shtml')
+            gather.pyjs('self')
+            time.sleep(1)
+            gather.homelin('self')
+            time.sleep(1)
+            gather.batt('self')
+            time.sleep(1)
+            gather.crest('self')
+            time.sleep(1)
+            gather.crestg('self')
+            time.sleep(1)
+            gather.contact('self')
+            time.sleep(1)
+            gather.colorgall('self')
+            time.sleep(1)
+            gather.BWgall('self')
+            time.sleep(1)
+            driver.quit()
+            global popup
+            popup = Success()
+            popup.exec()
 
     def mfvers(self):
         create.createDir('self')
         create.createLog('txt')
-        global driver
         if MFButton.clicked:
+            global driver
             driver = webdriver.Firefox()
-        driver.get('http://ramses/index.shtml')
-        gather.pyjs('self')
-        gather.pyjs2('self')
-        gather.batt('self')
-        gather.crest('self')
-        gather.crestg('self')
-        gather.contact('self')
-        gather.colorgall('self')
-        gather.BWgall('self')
-        driver.quit()
-        global popup
-        popup = Success()
-        popup.exec()
+            driver.maximize_window()
+            driver.get('https://thecityofkothos.com/')
+            gather.pyjs('self')
+            time.sleep(1)
+            gather.homelin('self')
+            time.sleep(1)
+            gather.batt('self')
+            time.sleep(1)
+            gather.crest('self')
+            time.sleep(1)
+            gather.crestg('self')
+            time.sleep(1)
+            gather.contact('self')
+            time.sleep(1)
+            gather.colorgall('self')
+            time.sleep(1)
+            gather.BWgall('self')
+            time.sleep(1)
+            driver.quit()
+            global popup
+            popup = Success()
+            popup.exec()
 
 
     def ievers(self):
         create.createDir('self')
         create.createLog('txt')
-        global driver
         if IEButton.clicked:
+            global driver
             driver = webdriver.Ie()
-        driver.get('http://ramses/index.shtml')
-        gather.pyjs('self')
-        gather.pyjs2('self')
-        gather.batt('self')
-        gather.crest('self')
-        gather.crestg('self')
-        gather.contact('self')
-        gather.colorgall('self')
-        gather.BWgall('self')
-        driver.quit()
-        global popup
-        popup = Success()
-        popup.exec()
+            driver.maximize_window()
+            driver.get('http://thecityofkothos.com/index.shtml')
+            gather.pyjs('self')
+            time.sleep(1)
+            gather.homelin('self')
+            time.sleep(1)
+            gather.batt('self')
+            time.sleep(1)
+            gather.crest('self')
+            time.sleep(1)
+            gather.crestg('self')
+            time.sleep(1)
+            gather.contact('self')
+            time.sleep(1)
+            gather.colorgall('self')
+            time.sleep(1)
+            gather.BWgall('self')
+            time.sleep(1)
+            driver.quit()
+            global popup
+            popup = Success()
+            popup.exec()
 
 
 class Browserbutton(QDialog):
