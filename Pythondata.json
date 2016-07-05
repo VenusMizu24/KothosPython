@@ -30,15 +30,15 @@
   ],
 
   "Contact": [
-    "firstname",
-    "lastname",
-    "email",
+    "firstna",
+    "lastna",
+    "email2",
     "stAddress",
     "city",
     "zip",
     "country",
     "phone",
-    "comment"
+    "msg"
   ],
 
   "Info": [
@@ -77,7 +77,7 @@
   "Page 16",
   "Page 17",
   "Page 18",
-  "Page 10",
+  "Page 19",
   "Page 20",
   "Page 21",
   "Page 22"
